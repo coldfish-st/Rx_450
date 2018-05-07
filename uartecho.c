@@ -85,8 +85,8 @@ void Delayms (int xms) {
 
 Void echoFxn(UArg arg0, UArg arg1)
 {
-    //const char input[] = "\fhello world\r";
-    int input = 20;
+    const char input[] = "hello world\r";
+    //int input = 20;
     //Board_UART_TX
     UART_Handle uart;
     UART_Params uartParams;
@@ -110,13 +110,13 @@ Void echoFxn(UArg arg0, UArg arg1)
     /* Loop forever echoing */
     while (1) {
 
-        System_printf("2s\n");
-        System_flush();
-        System_printf("%d\n", input);
-        System_flush();
+//        System_printf("2s\n");
+//        System_flush();
+//        System_printf("%d\n", input);
+//        System_flush();
         UART_write(uart, &input, sizeof(input));
 
-        input++;
+        //input++;
         Delayms(10000);
         //UART_read(uart, &input, 1);
         //UART_write(uart, &input, 1);
