@@ -11,7 +11,7 @@ var makeAssembly = false;
 var Executable = xdc.module('xdc.bld.Executable');
 
 var exeOpts = new Executable.Attrs({
-        cfgScript: 'C:/Users/Zhenge/workspace_v7/wisp5/CCS/uartecho_CC2650_LAUNCHXL_TI_400/uartecho.cfg',
+        cfgScript: 'C:/Users/embedded/ti/Rx_450/uartecho.cfg',
         profile: 'release',
         cfgHome: 'configPkg',
 });
@@ -41,7 +41,7 @@ else {
 
 var thisObj = {
     cfg:        '../uartecho.cfg',
-    outputPath: 'C:/Users/Zhenge/workspace_v7/wisp5/CCS/uartecho_CC2650_LAUNCHXL_TI_400/Debug/configPkg',
+    outputPath: 'C:/Users/embedded/ti/Rx_450/Debug/configPkg',
     exeName:    'uartecho' + suffix,
     exeIntName: 'uartecho' + suffix.replace('.', '_'),
     targ:       targ,

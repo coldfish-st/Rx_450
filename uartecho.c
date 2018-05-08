@@ -85,8 +85,10 @@ void Delayms (int xms) {
 
 Void echoFxn(UArg arg0, UArg arg1)
 {
-    const char input[] = "hello world\r";
-    //int input = 20;
+    PIN_Handle ledPinHandle;
+
+    //const char input[] = "hello world\r";
+    int input[2] = {true, false};
     //Board_UART_TX
     UART_Handle uart;
     UART_Params uartParams;
@@ -105,6 +107,11 @@ Void echoFxn(UArg arg0, UArg arg1)
         System_abort("Error opening the UART");
     }
 
+    ledPinHandle = PIN_open(&ledPinState, ledPinTable);
+    if(!ledPinHandle) {
+        System_abort("1Error initializing board LED pins\n");
+    }
+
     //UART_write(uart, echoPrompt, sizeof(echoPrompt));
     //input = 'T';
     /* Loop forever echoing */
@@ -112,10 +119,10 @@ Void echoFxn(UArg arg0, UArg arg1)
 
 //        System_printf("2s\n");
 //        System_flush();
-//        System_printf("%d\n", input);
-//        System_flush();
+        System_printf("%d\n", input);
+        System_flush();
         UART_write(uart, &input, sizeof(input));
-
+        PIN_setOutputValue(ledPinHandle, Board_LED1, !PIN_getOutputValue(Board_LED1));
         //input++;
         Delayms(10000);
         //UART_read(uart, &input, 1);
@@ -128,7 +135,7 @@ Void echoFxn(UArg arg0, UArg arg1)
  */
 int main(void)
 {
-    PIN_Handle ledPinHandle;
+    //PIN_Handle ledPinHandle;
     Task_Params taskParams;
 
     /* Call board init functions */
@@ -142,12 +149,12 @@ int main(void)
     Task_construct(&task0Struct, (Task_FuncPtr)echoFxn, &taskParams, NULL);
 
     /* Open LED pins */
-    ledPinHandle = PIN_open(&ledPinState, ledPinTable);
-    if(!ledPinHandle) {
-        System_abort("Error initializing board LED pins-400\n");
-    }
-
-    PIN_setOutputValue(ledPinHandle, Board_LED1, 1);
+//    ledPinHandle = PIN_open(&ledPinState, ledPinTable);
+//    if(!ledPinHandle) {
+//        System_abort("Error initializing board LED pins-400\n");
+//    }
+//
+//    PIN_setOutputValue(ledPinHandle, Board_LED1, 1);
 
     /* This example has logging and many other debug capabilities enabled */
     System_printf("This example does not attempt to minimize code or data "
